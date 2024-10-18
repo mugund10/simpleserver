@@ -1,4 +1,7 @@
-server:   
-  port: 8080
-  
-
+servers:
+  - server:
+      name: /chumma
+      port: :2908
+  - server:
+      name: /chumka
+      port: :2909
