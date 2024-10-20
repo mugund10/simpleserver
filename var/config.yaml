@@ -1,7 +1,5 @@
-servers:
-  - server:
-      name: /chumma
-      port: :2908
-  - server:
-      name: /chumka
-      port: :2909
+rproxy:
+  - subdomain: blog
+    port: 2908
+  - subdomain: aws
+    port: 2909

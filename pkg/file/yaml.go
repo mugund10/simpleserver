@@ -1,4 +1,4 @@
-package filereaders
+package file
 
 import (
 	"os"
@@ -11,7 +11,8 @@ type itsyaml struct {
 	data []byte
 }
 
-func New() *itsyaml {
+// reads yaml file
+func ReadYaml() *itsyaml {
 	yamlData, err := os.ReadFile("../../var/config.yaml")
 	if err != nil {
 		panic(err)
@@ -21,6 +22,7 @@ func New() *itsyaml {
 	}
 }
 
-func (iy itsyaml) LoadServer(ServerConfig *configs.ServersRoot) {
+// loads yaml contents
+func (iy itsyaml) Load(ServerConfig *configs.Reverse) {
 	yaml.Unmarshal(iy.data, &ServerConfig)
 }

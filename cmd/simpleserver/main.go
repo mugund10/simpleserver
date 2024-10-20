@@ -5,43 +5,36 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/mugund10/simpleserver/pkg/configs"
-	"github.com/mugund10/simpleserver/pkg/filereaders"
+	"github.com/mugund10/simpleserver/pkg/checker"
+	"github.com/mugund10/simpleserver/pkg/middlewares"
 )
 
 func main() {
-	var ServerConfig configs.ServersRoot
+	// a custom middleware stack
+	Mstack := middlewares.MakeStack(checker.CheckSubdomain)
 
-	file := filereaders.New()
-	file.LoadServer(&ServerConfig)
-
-	servers := ServerConfig.Servers
-	fmt.Println("Number of servers:", len(servers))
-
-	for i := 0; i < len(servers); i++ {
-		svr := servers[i]
-		go sooper(svr) 
-	}
-
-	select {}
-}
-
-func sooper(s configs.Server) {
+	// custom multiplexer for routing
 	mux := http.NewServeMux()
-	mux.HandleFunc(s.Server.Name, someHandler)
+	mux.HandleFunc("/", DefaultHandler)
 
-	server := &http.Server{
-		Addr:    s.Server.Port,
-		Handler: mux,
+	// custom server
+	server := http.Server{
+		Addr:    ":443",
+		Handler: Mstack(mux),
 	}
 
-	fmt.Printf("Starting server %s on port %s\n", s.Server.Name, s.Server.Port)
+	// server starts
+	log.Println("[INFO] server is running on port 443")
 	err := server.ListenAndServe()
 	if err != nil {
-		log.Println("Error starting server:", err)
+		log.Println("[ERROR] ", err)
 	}
+
 }
 
-func someHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Handling path: %s", r.URL.Path)
+// a simple handler
+func DefaultHandler(w http.ResponseWriter, r *http.Request) {
+
+	// write reverse proxy
+	fmt.Fprintf(w, "%v", "Default handler")
 }
