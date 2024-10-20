@@ -8,24 +8,23 @@ import (
 	"github.com/mugund10/simpleserver/pkg/file"
 )
 
+var server *ser
+
+// get initialized before running server
+func init() {
+	seri := &ser{}
+	yams := file.Getyaml()
+	yams.LoadServer(&seri.conser)
+	server = seri
+	log.Println("[INFO] server config added")
+}
+
 // a custom type for reverse proxy
 type ser struct {
 	conser configs.ServerDetails
-	loaded *bool
 }
 
 // Gives server details
 func GetServerS() []configs.Sconfig {
-	reverse := &ser{}
-	if reverse.loaded == nil {
-		// reads and loads server config
-		yam, err := file.Getyaml()
-		if err != nil {
-			log.Fatalln(err)
-		}
-		yam.LoadServer(&reverse.conser)
-		value := true
-		reverse.loaded = &value
-	}
-	return reverse.conser.Server
+	return server.conser.Server
 }
