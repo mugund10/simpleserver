@@ -7,27 +7,30 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-type itsyaml struct {
-	data []byte
+type Itsyaml struct {
+	Data []byte
 }
 
+var Yam *Itsyaml
+
 // reads yaml file
-func Getyaml() *itsyaml {
-	yam := &itsyaml{}
+func Getyaml() (*Itsyaml, error) {
+	yam := &Itsyaml{}
 	yamlData, err := os.ReadFile("../../var/config.yaml")
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
-	yam.data = yamlData
-	return yam
+	yam.Data = yamlData
+	Yam = yam
+	return Yam, nil
 }
 
 // loads Reverse config
-func (iy itsyaml) LoadReverse(Config *configs.ReverseDetails) {
-	yaml.Unmarshal(iy.data, &Config)
+func (iy Itsyaml) LoadReverse(Config *configs.ReverseDetails) {
+	yaml.Unmarshal(iy.Data, &Config)
 }
 
 // load Server config
-func (iy itsyaml) LoadServer(Config *configs.ServerDetails) {
-	yaml.Unmarshal(iy.data, &Config)
+func (iy Itsyaml) LoadServer(Config *configs.ServerDetails) {
+	yaml.Unmarshal(iy.Data, &Config)
 }
