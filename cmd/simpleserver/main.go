@@ -10,9 +10,11 @@ import (
 	"github.com/mugund10/simpleserver/pkg/readers"
 )
 
+
+
 func main() {
 	sd := readers.GetServerS()
-	port := fmt.Sprintf(":%d", sd.Port)
+	port := fmt.Sprintf(":%v", sd[0].Port)
 
 	// a custom middleware stack
 	Mstack := middlewares.MakeStack(checker.CheckSubdomain)
@@ -23,12 +25,12 @@ func main() {
 
 	// custom server
 	server := http.Server{
-		Addr:    ":443",
+		Addr:    port,
 		Handler: Mstack(mux),
 	}
 
 	// server starts
-	log.Println("[INFO] server is running on port ",port)
+	log.Println("[INFO] server is running on port ", port)
 	err := server.ListenAndServe()
 	if err != nil {
 		log.Println("[ERROR] ", err)

@@ -1,9 +1,9 @@
 rproxy:
   - subdomain: blog
-    port: 2908
+    rport: 2908
   - subdomain: aws
-    port: 2909
+    rport: 2909
 
 server:
   - domain: mugund10.top
-  - port: 443
+    sport: 443

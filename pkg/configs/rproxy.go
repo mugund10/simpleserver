@@ -7,5 +7,5 @@ type ReverseDetails struct {
 
 type Rconfig struct {
 	Subdomain string `yaml:"subdomain"`
-	Port      string `yaml:"port"`
+	Port      int    `yaml:"rport"`
 }

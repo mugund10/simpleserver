@@ -1,6 +1,7 @@
 package file
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/mugund10/simpleserver/pkg/configs"
@@ -8,7 +9,8 @@ import (
 )
 
 type Itsyaml struct {
-	Data []byte
+	DataSer []byte
+	DataRev []byte
 }
 
 var Yam *Itsyaml
@@ -20,17 +22,27 @@ func Getyaml() (*Itsyaml, error) {
 	if err != nil {
 		return nil, err
 	}
-	yam.Data = yamlData
+	yam.DataSer = yamlData
+	yam.DataRev = yamlData
 	Yam = yam
+	//log.Println(string(yam.Data))
 	return Yam, nil
 }
 
 // loads Reverse config
-func (iy Itsyaml) LoadReverse(Config *configs.ReverseDetails) {
-	yaml.Unmarshal(iy.Data, &Config)
+func (iy Itsyaml) LoadReverse(config *configs.ReverseDetails) error {
+	fmt.Println("Reverse///")
+	fmt.Println(string(iy.DataRev))
+	err := yaml.Unmarshal(iy.DataRev, &config)
+	fmt.Println(&config)
+	return err
 }
 
 // load Server config
-func (iy Itsyaml) LoadServer(Config *configs.ServerDetails) {
-	yaml.Unmarshal(iy.Data, &Config)
+func (iy Itsyaml) LoadServer(config *configs.ServerDetails) error {
+	fmt.Println("////server")
+	fmt.Println(string(iy.DataSer))
+	err := yaml.Unmarshal(iy.DataSer, &config)
+	fmt.Println(&config)
+	return err
 }

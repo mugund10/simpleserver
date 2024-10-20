@@ -2,6 +2,8 @@
 package readers
 
 import (
+	"log"
+
 	"github.com/mugund10/simpleserver/pkg/configs"
 	"github.com/mugund10/simpleserver/pkg/file"
 )
@@ -12,13 +14,16 @@ type rev struct {
 	loaded *bool
 }
 
-
 // Gives slices of proxies
 func Getproxies() []configs.Rconfig {
 	reverse := &rev{}
 	if reverse.loaded == nil {
 		// reads and loads yaml file config
-		file.Getyaml().LoadReverse(&reverse.conrev)
+		yam, err := file.Getyaml()
+		if err != nil {
+			log.Fatalln(err)
+		}
+		yam.LoadReverse(&reverse.conrev)
 		value := true
 		reverse.loaded = &value
 	}
