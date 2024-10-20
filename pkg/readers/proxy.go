@@ -1,28 +1,24 @@
-package reverse
+// simply reads proxy configs
+package readers
 
 import (
 	"github.com/mugund10/simpleserver/pkg/configs"
 	"github.com/mugund10/simpleserver/pkg/file"
 )
 
-// a custom type
+// a custom type for reverse proxy
 type rev struct {
-	conrev configs.Reverse
+	conrev configs.ReverseDetails
 	loaded *bool
 }
 
-// reads and loads yaml file config
-func listProxies() {
-	reverse := &rev{}
-	file := file.ReadYaml()
-	file.Load(&reverse.conrev)
-}
 
 // Gives slices of proxies
-func Getproxies() []configs.Config {
+func Getproxies() []configs.Rconfig {
 	reverse := &rev{}
 	if reverse.loaded == nil {
-		listProxies()
+		// reads and loads yaml file config
+		file.Getyaml().LoadReverse(&reverse.conrev)
 		value := true
 		reverse.loaded = &value
 	}

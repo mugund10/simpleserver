@@ -1,11 +1,11 @@
 // custom type of rproxy in config
 package configs
 
-type Reverse struct {
-	Proxies []Config `yaml:"rproxy"`
+type ReverseDetails struct {
+	Proxies []Rconfig `yaml:"rproxy"`
 }
 
-type Config struct {
+type Rconfig struct {
 	Subdomain string `yaml:"subdomain"`
 	Port      string `yaml:"port"`
 }

@@ -12,17 +12,22 @@ type itsyaml struct {
 }
 
 // reads yaml file
-func ReadYaml() *itsyaml {
+func Getyaml() *itsyaml {
+	yam := &itsyaml{}
 	yamlData, err := os.ReadFile("../../var/config.yaml")
 	if err != nil {
 		panic(err)
 	}
-	return &itsyaml{
-		data: yamlData,
-	}
+	yam.data = yamlData
+	return yam
 }
 
-// loads yaml contents
-func (iy itsyaml) Load(ServerConfig *configs.Reverse) {
-	yaml.Unmarshal(iy.data, &ServerConfig)
+// loads Reverse config
+func (iy itsyaml) LoadReverse(Config *configs.ReverseDetails) {
+	yaml.Unmarshal(iy.data, &Config)
+}
+
+// load Server config
+func (iy itsyaml) LoadServer(Config *configs.ServerDetails) {
+	yaml.Unmarshal(iy.data, &Config)
 }

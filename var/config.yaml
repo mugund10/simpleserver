@@ -3,3 +3,7 @@ rproxy:
     port: 2908
   - subdomain: aws
     port: 2909
+
+server:
+  - domain: mugund10.top
+  - port: 443

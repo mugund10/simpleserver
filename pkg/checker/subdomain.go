@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/mugund10/simpleserver/pkg/reverse"
+	"github.com/mugund10/simpleserver/pkg/readers"
 )
 
 // a middleware which checks for subdomain
@@ -27,7 +27,7 @@ func CheckSubdomain(next http.Handler) http.Handler {
 
 // finds whether the requested host and config host are same
 func finder(match string) bool {
-	Proxies := reverse.Getproxies()
+	Proxies := readers.Getproxies()
 	for i := 0; i < len(Proxies); i++ {
 		if Proxies[i].Subdomain == match {
 			return true

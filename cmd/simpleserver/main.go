@@ -7,9 +7,13 @@ import (
 
 	"github.com/mugund10/simpleserver/pkg/checker"
 	"github.com/mugund10/simpleserver/pkg/middlewares"
+	"github.com/mugund10/simpleserver/pkg/readers"
 )
 
 func main() {
+	sd := readers.GetServerS()
+	port := fmt.Sprintf(":%d", sd.Port)
+
 	// a custom middleware stack
 	Mstack := middlewares.MakeStack(checker.CheckSubdomain)
 
@@ -24,7 +28,7 @@ func main() {
 	}
 
 	// server starts
-	log.Println("[INFO] server is running on port 443")
+	log.Println("[INFO] server is running on port ",port)
 	err := server.ListenAndServe()
 	if err != nil {
 		log.Println("[ERROR] ", err)
