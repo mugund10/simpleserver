@@ -10,8 +10,6 @@ import (
 	"github.com/mugund10/simpleserver/pkg/readers"
 )
 
-
-
 func main() {
 	sd := readers.GetServerS()
 	port := fmt.Sprintf(":%v", sd[0].Port)
@@ -40,7 +38,6 @@ func main() {
 
 // a simple handler
 func DefaultHandler(w http.ResponseWriter, r *http.Request) {
-
-	// write reverse proxy
+	// to do write reverse proxy
 	fmt.Fprintf(w, "%v", "Default handler")
 }

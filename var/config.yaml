@@ -5,5 +5,5 @@ rproxy:
     rport: 2909
 
 server:
-  - domain: mugund10.top
+  - domain: of.mugund10.top
     sport: 443

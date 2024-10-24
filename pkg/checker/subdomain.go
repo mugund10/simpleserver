@@ -1,6 +1,7 @@
 package checker
 
 import (
+	"fmt"
 	"net/http"
 	"strings"
 
@@ -11,7 +12,9 @@ import (
 func CheckSubdomain(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// checks domain too
-		if strings.Contains(r.Host, "mugund10.top:") {
+		sd := readers.GetServerS()
+		checks := fmt.Sprintf("%s:", sd[0].Domain)
+		if strings.Contains(r.Host, checks) {
 			sdom := strings.Split(r.Host, ".")
 			ok := finder(sdom[0])
 			if ok {
