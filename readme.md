@@ -1,1 +1,1 @@
-### the next server
+# simple server makes things simple which are not simpler

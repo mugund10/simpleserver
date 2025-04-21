@@ -1,7 +1,7 @@
 rproxy:
   - subdomain: blog
     rport: 2908
-  - subdomain: aws
+  - subdomain: ip
     rport: 2909
 
 server:

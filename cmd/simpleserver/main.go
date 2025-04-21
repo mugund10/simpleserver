@@ -4,6 +4,9 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"net/http/httputil"
+	"net/url"
+	"strings"
 
 	"github.com/mugund10/simpleserver/pkg/checker"
 	"github.com/mugund10/simpleserver/pkg/middlewares"
@@ -11,7 +14,13 @@ import (
 )
 
 func main() {
+	proxies := make(map[string]*httputil.ReverseProxy)
 	sd := readers.GetServerS()
+	pd := readers.Getproxies()
+	for _, dat := range pd {
+		url, _ := url.Parse(fmt.Sprintf("http://localhost:%d", dat.Port))
+		proxies[dat.Subdomain] = httputil.NewSingleHostReverseProxy(url)
+	}
 	port := fmt.Sprintf(":%v", sd[0].Port)
 
 	// a custom middleware stack
@@ -19,7 +28,10 @@ func main() {
 
 	// custom multiplexer for routing
 	mux := http.NewServeMux()
-	mux.HandleFunc("/", DefaultHandler)
+	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		sdom := strings.Split(r.Host, ".")
+		proxies[sdom[0]].ServeHTTP(w, r)
+	})
 
 	// custom server
 	server := http.Server{
