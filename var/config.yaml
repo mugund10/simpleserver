@@ -1,8 +1,8 @@
 rproxy:
   - subdomain: blog
     rport: 2908
-  - subdomain: ip
-    rport: 2909
+  - subdomain: code
+    rport: 8888
 
 server:
   - domain: of.mugund10.top

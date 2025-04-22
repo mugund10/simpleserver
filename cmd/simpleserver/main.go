@@ -18,7 +18,7 @@ func main() {
 	sd := readers.GetServerS()
 	pd := readers.Getproxies()
 	for _, dat := range pd {
-		url, _ := url.Parse(fmt.Sprintf("http://localhost:%d", dat.Port))
+		url, _ := url.Parse(fmt.Sprintf("http://172.17.0.1:%d", dat.Port))
 		proxies[dat.Subdomain] = httputil.NewSingleHostReverseProxy(url)
 	}
 	port := fmt.Sprintf(":%v", sd[0].Port)
