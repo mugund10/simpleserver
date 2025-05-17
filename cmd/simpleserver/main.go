@@ -29,9 +29,63 @@ func main() {
 	// custom multiplexer for routing
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		sdom := strings.Split(r.Host, ".")
-		proxies[sdom[0]].ServeHTTP(w, r)
+		if r.Host == "mugund10.top" {
+			fmt.Fprintf(w, `<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mugund10.top</title>
+    <style>
+      body {
+        background-color: #fff;
+        color: #000;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 40px;
+      }
+      .container {
+        max-width: 600px;
+        margin: auto;
+        text-align: center;
+      }
+      a {
+        color: #000;
+        text-decoration: underline;
+      }
+      h1 {
+        font-size: 2.5em;
+        margin-bottom: 0.5em;
+      }
+      p {
+        font-size: 1.1em;
+        line-height: 1.6;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>mugund10.top</h1>
+      <p>powered by <strong>SimpleServer</strong>.</p>
+      <p>
+        Source code is available on
+        <a href="https://github.com/mugund10/simpleserver/" target="_blank">GitHub</a>.
+      </p>
+      <p>
+        <a href="https://blog.of.mugund10.top" target="_blank">blog @ blog.of.mugund10.top</a>
+      </p>
+    </div>
+  </body>
+</html>`)
+
+		} else {
+
+			sdom := strings.Split(r.Host, ".")
+			proxies[sdom[0]].ServeHTTP(w, r)
+		}
 	})
+
+  
 
 	// custom server
 	server := http.Server{
@@ -41,7 +95,7 @@ func main() {
 
 	// server starts
 	log.Println("[INFO] server is running on port ", port)
-	err := server.ListenAndServe()
+	err := server.ListenAndServeTLS("cert.pem","privkey.pem")
 	if err != nil {
 		log.Println("[ERROR] ", err)
 	}

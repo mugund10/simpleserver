@@ -1,7 +1,6 @@
 package checker
 
 import (
-	"fmt"
 	"net/http"
 	"strings"
 
@@ -11,19 +10,23 @@ import (
 // a middleware which checks for subdomain
 func CheckSubdomain(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		// checks domain too
-		sd := readers.GetServerS()
-		checks := fmt.Sprintf("%s:", sd[0].Domain)
-		if strings.Contains(r.Host, checks) {
-			sdom := strings.Split(r.Host, ".")
-			ok := finder(sdom[0])
-			if ok {
-				next.ServeHTTP(w, r)
+		if r.Host == "mugund10.top" {
+			next.ServeHTTP(w, r)
+		} else {
+			// checks domain too
+			sd := readers.GetServerS()
+			checks := sd[0].Domain
+			if strings.Contains(r.Host, checks) {
+				sdom := strings.Split(r.Host, ".")
+				ok := finder(sdom[0])
+				if ok {
+					next.ServeHTTP(w, r)
+				} else {
+					http.NotFound(w, r)
+				}
 			} else {
 				http.NotFound(w, r)
 			}
-		} else {
-			http.NotFound(w, r)
 		}
 	})
 }

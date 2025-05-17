@@ -3,6 +3,12 @@ rproxy:
     rport: 2908
   - subdomain: code
     rport: 8888
+  - subdomain: mocker
+    rport: 8081
+  - subdomain: feederprox
+    rport: 30090
+  - subdomain: feeder
+    rport: 30080
 
 server:
   - domain: of.mugund10.top
