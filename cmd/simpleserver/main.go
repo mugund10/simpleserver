@@ -29,13 +29,13 @@ func main() {
 	// custom multiplexer for routing
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		if r.Host == "mugund10.top" {
+			if r.Host == "mugund10.dev" {
 			fmt.Fprintf(w, `<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>mugund10.top</title>
+    <title>mugund10.dev</title>
     <style>
       body {
         background-color: #fff;
@@ -65,14 +65,14 @@ func main() {
   </head>
   <body>
     <div class="container">
-      <h1>mugund10.top</h1>
+      <h1>mugund10.dev</h1>
       <p>powered by <strong>SimpleServer</strong>.</p>
       <p>
         Source code is available on
         <a href="https://github.com/mugund10/simpleserver/" target="_blank">GitHub</a>.
       </p>
       <p>
-        <a href="https://blog.of.mugund10.top" target="_blank">blog @ blog.of.mugund10.top</a>
+        <a href="https://blog.of.mugund10.dev" target="_blank">blog @ blog.of.mugund10.dev</a>
       </p>
     </div>
   </body>
@@ -85,8 +85,6 @@ func main() {
 		}
 	})
 
-  
-
 	// custom server
 	server := http.Server{
 		Addr:    port,
@@ -95,7 +93,7 @@ func main() {
 
 	// server starts
 	log.Println("[INFO] server is running on port ", port)
-	err := server.ListenAndServeTLS("cert.pem","privkey.pem")
+	err := server.ListenAndServeTLS("fullchain.pem", "privkey.pem")
 	if err != nil {
 		log.Println("[ERROR] ", err)
 	}

@@ -10,7 +10,7 @@ import (
 // a middleware which checks for subdomain
 func CheckSubdomain(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if r.Host == "mugund10.top" {
+		if r.Host == "mugund10.dev" {
 			next.ServeHTTP(w, r)
 		} else {
 			// checks domain too

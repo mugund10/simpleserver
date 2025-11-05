@@ -11,5 +11,5 @@ rproxy:
     rport: 30080
 
 server:
-  - domain: of.mugund10.top
+  - domain: of.mugund10.dev
     sport: 443

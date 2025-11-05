@@ -1,3 +1,5 @@
 *.json
 *.log
 *.env
+*.pem
+var/
