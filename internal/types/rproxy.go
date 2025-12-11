@@ -1,5 +1,5 @@
 // custom type of rproxy in config
-package configs
+package types
 
 type ReverseDetails struct {
 	Proxies []Rconfig `yaml:"rproxy"`

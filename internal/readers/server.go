@@ -4,9 +4,10 @@ package readers
 import (
 	"log"
 
-	"github.com/mugund10/simpleserver/pkg/configs"
-	"github.com/mugund10/simpleserver/pkg/file"
+	"github.com/mugund10/simpleserver/internal/file"
+	"github.com/mugund10/simpleserver/internal/types"
 )
+
 
 var server *ser
 
@@ -21,10 +22,10 @@ func init() {
 
 // a custom type for reverse proxy
 type ser struct {
-	conser configs.ServerDetails
+	conser types.ServerDetails
 }
 
-// Gives server details
-func GetServerS() []configs.Sconfig {
+// Gives slices of server details
+func GetServerS() []types.Sconfig {
 	return server.conser.Server
 }

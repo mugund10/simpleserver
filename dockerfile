@@ -16,8 +16,9 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /root/
 COPY --from=builder /simpleserver .
-COPY var/config.yaml /var/config.yaml
-COPY cmd/simpleserver/fullchain.pem cmd/simpleserver/privkey.pem .  
+COPY /config.yaml /config.yaml
+COPY cmd/simpleserver/templates/index.html  /root/templates/index.html  
+COPY cmd/simpleserver/fullchain.pem cmd/simpleserver/privkey.pem cmd/simpleserver/templates/ .  
 
 EXPOSE 443
 CMD ["./simpleserver"]

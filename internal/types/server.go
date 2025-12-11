@@ -1,5 +1,5 @@
 // custom type of server in config
-package configs
+package types
 
 type ServerDetails struct {
 	Server []Sconfig `yaml:"server"`

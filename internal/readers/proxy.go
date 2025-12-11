@@ -4,8 +4,8 @@ package readers
 import (
 	"log"
 
-	"github.com/mugund10/simpleserver/pkg/configs"
-	"github.com/mugund10/simpleserver/pkg/file"
+	"github.com/mugund10/simpleserver/internal/file"
+	"github.com/mugund10/simpleserver/internal/types"
 )
 
 var reverse *rev
@@ -21,10 +21,10 @@ func init() {
 
 // a custom type for reverse proxy
 type rev struct {
-	conrev configs.ReverseDetails
+	conrev types.ReverseDetails
 }
 
 // Gives slices of proxies
-func Getproxies() []configs.Rconfig {
+func Getproxies() []types.Rconfig {
 	return reverse.conrev.Proxies
 }

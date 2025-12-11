@@ -9,6 +9,8 @@ rproxy:
     rport: 30090
   - subdomain: feeder
     rport: 30080
+  - subdomain: root
+    rport: 9090
 
 server:
   - domain: of.mugund10.dev

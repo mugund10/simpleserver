@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/mugund10/simpleserver/pkg/readers"
+	"github.com/mugund10/simpleserver/internal/readers"
 )
 
 // a middleware which checks for subdomain
